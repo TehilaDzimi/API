@@ -13,17 +13,20 @@ namespace API.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    
 
    
     public class UsersController : ControllerBase
     {
-      
+
+        IUserService userService;
+
         // GET api/<ValuesController>
         [HttpGet]
-        public ActionResult Get(
+        public async Task<ActionResult> Get(
             [FromQuery] string userName="", [FromQuery] string password="")
         {
-           User userAgsist = userService.getUser(userName, password);
+           User userAgsist = await userService.getUser(userName, password);
             if(userAgsist ==null)
             {
                 return NoContent();
@@ -33,7 +36,10 @@ namespace API.Controllers
         }
 
 
-        UserService userService = new UserService();
+        public UsersController(IUserService u)
+        {
+            userService = u;
+        }
 
         // POST api/<ValuesController>
         [HttpPost]
@@ -68,9 +74,9 @@ namespace API.Controllers
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] User userToUpdate)
+        public async Task Put(int id, [FromBody] User userToUpdate)
         {
-            User newUser = userService.editUser(userToUpdate);
+            await userService.editUser(userToUpdate);
 
         }
 
@@ -78,6 +84,19 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
+        }
+        [HttpGet("id")]
+        public async Task<ActionResult> Get(
+            [FromQuery] int id )
+        {
+            User userAgsist = await userService.getUserById(id);
+            if (userAgsist == null)
+            {
+                return NoContent();
+            }
+            return Ok(userAgsist);
+
         }
     }
 }

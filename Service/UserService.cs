@@ -3,11 +3,17 @@ using Repository;
 
 namespace Service
 {
-    public class UserService
+    public class UserService : IUserService
     {
+        IUserRepository userRepository;
 
-        UserRepository userRepository = new UserRepository();
-        public User addUser (User user)
+        public UserService(IUserRepository u)
+        {
+            userRepository = u;
+        }
+
+
+        public User addUser(User user)
         {
             if (checkPassword(user.Password) < 2)
             {
@@ -18,16 +24,16 @@ namespace Service
 
 
 
-        public User getUser(string userName, string password)
+        public async Task<User> getUser(string userName, string password)
         {
-            return userRepository.getUser(userName, password);
+            return await userRepository.getUser(userName, password);
         }
 
 
-        public User editUser( User userToUpdate)
+        public async Task<User> editUser(User userToUpdate)
         {
 
-            return userRepository.editUser(userToUpdate);
+            return await userRepository.editUser(userToUpdate);
         }
 
         private int checkPassword(string password)
@@ -40,5 +46,9 @@ namespace Service
             return -1;
         }
 
+        public async Task<User> getUserById(int id)
+        {
+            return await userRepository.getUserById(id);
+        }
     }
 }
