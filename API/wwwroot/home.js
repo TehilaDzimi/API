@@ -7,12 +7,12 @@ const register = async () => {
 
 
     try {
-        var userName = document.getElementById("userName").value
+        var email = document.getElementById("email").value
 
         var password = document.getElementById("password").value
         var firstName = document.getElementById("firstName").value
         var lastName = document.getElementById("lastName").value
-        var User = { userName, password, firstName, lastName }
+        var User = { email, password, firstName, lastName }
 
 
         const res = await fetch('api/users', {
@@ -36,8 +36,8 @@ const register = async () => {
 
 
 const checkLength = () => {
-    var userName = document.getElementById("userName").value
-    if (userName.length > 10) {
+    var email = document.getElementById("email").value
+    if (email.length > 10) {
         alert("to long")
     }
 } 
@@ -92,9 +92,9 @@ const checkPassword = async () => {
 
 const login = async () => {
     try {
-        var userName2 = document.getElementById("userName2").value
+        var email2 = document.getElementById("email2").value
         var password2 = document.getElementById("password2").value
-        var url = 'api/users' + "?" + "userName=" + userName2 + "&password=" + password2;
+        var url = 'api/users' + "?" + "email=" + email2 + "&password=" + password2;
         const res = await fetch(url,);
         console.log(res)
         if (!res.ok) {

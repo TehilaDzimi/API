@@ -14,8 +14,6 @@ namespace API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     
-
-   
     public class UsersController : ControllerBase
     {
 
@@ -23,10 +21,9 @@ namespace API.Controllers
 
         // GET api/<ValuesController>
         [HttpGet]
-        public async Task<ActionResult> Get(
-            [FromQuery] string userName="", [FromQuery] string password="")
+        public async Task<ActionResult<User>> Get([FromQuery] string email="", [FromQuery] string password="")
         {
-           User userAgsist = await userService.getUser(userName, password);
+           User userAgsist = await userService.getUser(email, password);
             if(userAgsist ==null)
             {
                 return NoContent();
@@ -43,13 +40,12 @@ namespace API.Controllers
 
         // POST api/<ValuesController>
         [HttpPost]
-        public IActionResult Post([FromBody] User user)
+        public async Task<CreatedAtActionResult> Post([FromBody] User user)
         {
-
-            User newUser = userService.addUser(user);
+            User newUser = await userService.addUser(user);
             if (newUser == null)
             {
-                return BadRequest();
+                return null;
             }
             return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser);
 

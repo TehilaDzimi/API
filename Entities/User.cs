@@ -1,22 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
-namespace Entities
+namespace Entities;
+
+public partial class User
 {
-    public class User
-    {
+    public int UserId { get; set; }
 
-        public int UserId { get; set; }
+    public string? Email { get; set; }
 
-        [StringLength(10, ErrorMessage = "Name langrh can't be more than 10.")]
-        public string UserName { get; set; }
-        [StringLength(10, ErrorMessage = "Name langrh can't be more than 10.")]
-        public string Password { get; set; }
-        [StringLength(10, ErrorMessage = "Name langrh can't be more than 10.")]
-        public string FirstName { get; set; }
-        [StringLength(10, ErrorMessage = "Name langrh can't be more than 10.")]
-        public string LastName { get; set; }
-   
+    public string? FirstName { get; set; }
 
+    public string? LastName { get; set; }
 
-    }
+    public string? Password { get; set; }
+
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

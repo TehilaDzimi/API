@@ -13,20 +13,19 @@ namespace Service
         }
 
 
-        public User addUser(User user)
+        public async Task<User> addUser(User user)
         {
             if (checkPassword(user.Password) < 2)
             {
                 return null;
             }
-            return userRepository.addUser(user);
+            return await userRepository.addUser(user);
         }
 
 
-
-        public async Task<User> getUser(string userName, string password)
+        public async Task<User> getUser(string email, string password)
         {
-            return await userRepository.getUser(userName, password);
+            return await userRepository.getUser(email, password);
         }
 
 

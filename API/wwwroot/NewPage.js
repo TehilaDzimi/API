@@ -5,9 +5,9 @@ const jsonUser = JSON.parse(user)
 
 const loadPage = () => {
     const jsonUser = JSON.parse(user)
-    welcome.innerHTML = `hello to ${jsonUser.userName}  welcome to home page:)!!!`
-    const userName3 = document.getElementById("userName3")
-    userName3.value = jsonUser.userName
+    welcome.innerHTML = `hello to ${jsonUser.email}  welcome to home page:)!!!`
+    const email3 = document.getElementById("email3")
+    email3.value = jsonUser.email
 
     const password3 = document.getElementById("password3")
     password3.value = jsonUser.password
@@ -20,16 +20,14 @@ const loadPage = () => {
 
 }
 
-
-
 const update = async () => {
     try {
         var userId = jsonUser.userId
-        var userName = document.getElementById("userName3").value
+        var email = document.getElementById("email3").value
         var password = document.getElementById("password3").value
         var firstName = document.getElementById("firstName3").value
         var lastName = document.getElementById("lastName3").value
-        var User = { userId, userName, password, firstName, lastName }
+        var User = { userId, email, password, firstName, lastName }
         console.log(User)
         var url = 'api/users' + "/" + userId
         const res = await fetch(url, {
