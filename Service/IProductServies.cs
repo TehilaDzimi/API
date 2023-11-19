@@ -4,6 +4,6 @@ namespace Services
 {
     public interface IProductServies
     {
-        Task<IEnumerable<Product>> getProductAsync();
+        Task<IEnumerable<Product>> getProductAsync(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds);
     }
 }

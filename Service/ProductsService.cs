@@ -17,19 +17,10 @@ namespace Services
         {
             _productRepository = productRepository;
         }
-        public async Task<IEnumerable<Product>> getProductAsync()
+        public async Task<IEnumerable<Product>> getProductAsync(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
-            return await _productRepository.getProductAsync();
+            return await _productRepository.getProductAsync(desc,minPrice,maxPrice,categoryIds);
         }
 
-        //public async Task<IEnumerable<Product>> getProductsAsync()
-        //{
-        //    return await _productRepository.getProductAsync();
-        //}
-
-        //public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId)
-        //{
-        //    return await _productRepository.GetProductsByCategoryAsync(categoryId);
-        //}
     }
 }

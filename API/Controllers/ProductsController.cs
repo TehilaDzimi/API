@@ -21,9 +21,9 @@ namespace API.Controllers
 
         // GET: api/<ProductsController>
         [HttpGet]
-        public async Task<IEnumerable<Product>> Get()
+        public async Task<IEnumerable<Product>> Get(string? desc, int? minPrice, int? maxPrice, [FromQuery] int?[] categoryIds)
         {
-            return await _productServices.getProductAsync();
+            return await _productServices.getProductAsync(desc, minPrice, maxPrice, categoryIds);
         }
 
         // GET api/<ProductsController>/5

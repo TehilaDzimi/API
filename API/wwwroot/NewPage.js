@@ -45,6 +45,11 @@ const update = async () => {
 
 catch (er) {
     alert(er.message)
+    }
+
+    
 }
 
+const logToStore = () => {
+    window.location.href = "./Products.html"
 }
