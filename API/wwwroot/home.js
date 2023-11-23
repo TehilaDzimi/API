@@ -105,14 +105,14 @@ const login = async () => {
             sessionStorage.setItem("user", JSON.stringify(data))
             alert("you loged in")
             window.location.href = "./newPage.html"
-   
+            
         }
     }
     catch (er) {
         alert(er.message)
     }
    
- 
+    
     }
 
 

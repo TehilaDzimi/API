@@ -14,7 +14,7 @@
             <h1></h1>
             <p class="price"></p>
             <p class="description"></p>
-            <p><button onclick="addToBasket()">הוסף לסל</button></p>
+            <p><button>הוסף לסל</button></p>
         </div>
     </template>
     <template id="temp-category">
@@ -58,15 +58,13 @@
             <div class="Checkout ">
                 <a class="goToCart" href="ShoppingBag.html">לקופה</a>
             </div>
-
-
         </div>
     </header>
 
     <div id="filters" class="Filters fixedVisible">
         <div class="ResultCount" style="position: absolute; top: 0px;">
             <a class="Clear" href="">נקה הכל</a>
-            <div><span id="counter">  </span> מוצרים</div>
+            <div><span id="counter"></span> מוצרים</div>
 
             <div>
                 <span id="counter">
@@ -89,10 +87,10 @@
         <div id="priceRangeFilter" class="filterBreak">
             <div><span id="counter">  </span> מחיר:</div>
 
-            <input type="text" maxlength="9" id="minPrice" class="priceInputText">
+            <input type="text" maxlength="9" id="minPrice" placeholder="מינימום" class="priceInputText">
             <span class="priceCurrency">₪</span>
 
-            <input type="text" maxlength="9" id="maxPrice" class="priceInputText">
+            <input type="text" maxlength="9" id="maxPrice"placeholder="מקסימום" class="priceInputText">
             <span class="priceCurrency">₪</span>
             <button onclick="FilterProducts()">
                 <span><img src="images/searchIcon.svg" alt="סמל חיפוש"></span>

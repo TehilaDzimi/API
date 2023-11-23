@@ -27,7 +27,7 @@ const getAllProducts = async (desc, minPrice, maxPrice, categoryIds) => {
     }
 }
 
-
+count = 0;
 const FilterProducts = async () => {
     const categoriesArr = [];
     const a = document.querySelectorAll(".opt");
@@ -41,17 +41,17 @@ const FilterProducts = async () => {
     const getmaxPrice = document.getElementById("maxPrice").value
     const products = await getAllProducts(getdesk, getminPrice, getmaxPrice, categoriesArr);
     document.getElementById("PoductList").replaceChildren([]);
-    console.log(products + '  3333')
     for (let i = 0; i < products.length; i++) {
         var templateProd = document.getElementById("temp-card");
         var cln = templateProd.content.cloneNode(true);
         cln.querySelector("img").src = "./Images/" + products[i].image;
         cln.querySelector("h1").innerText = products[i].name;
-        cln.querySelector("p.price").innerText = products[i].price + '$';
+        cln.querySelector("p.price").innerText = products[i].price + ' $';
         cln.querySelector("p.description").innerText = products[i].description;
-
+        cln.querySelector("button") .addEventListener('click', () => {addToBasket(products[i]) })
         document.getElementById("PoductList").appendChild(cln);
     }
+    document.getElementById("counter").innerText = products.length+1;
 }
 
 
@@ -82,12 +82,13 @@ const ShowCategories = async () => {
 
         document.getElementById("categoryList").appendChild(cln);
     }
-
-
 }
 ShowCategories();
 
+const basketArr = [];
 
-const addToBasket = () => {
-
+const addToBasket = (products) => {
+    basketArr.push(products);
+    console.log(basketArr + " a")
+    sessionStorage.setItem("myBasket", JSON.stringify(basketArr));
 }
