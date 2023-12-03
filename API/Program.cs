@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using NLog.Web;
 using Repository;
 using Service;
 using Services;
@@ -15,16 +17,16 @@ builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoriesService, CategoriesService>();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
-
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// Add services to the container.
 
+builder.Host.UseNLog();
+// Add services to the container.
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
-builder.Services.AddDbContext<MyShop910Context>();
+builder.Services.AddDbContext<MyShop910Context>(option=>option.UseSqlServer
+(builder.Configuration.GetConnectionString("myShop")));
+
 var app = builder.Build();
 if(app.Environment.IsDevelopment())
 {

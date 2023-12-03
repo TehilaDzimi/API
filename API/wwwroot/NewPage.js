@@ -2,11 +2,14 @@
 const user = sessionStorage.getItem("user")
 const jsonUser = JSON.parse(user)
 
-
 const loadPage = () => {
-    const jsonUser = JSON.parse(user)
-    welcome.innerHTML = `hello to ${jsonUser.email}  welcome to home page:)!!!`
-    const email3 = document.getElementById("email3")
+    /*const jsonUser = JSON.parse(user)*/
+    welcome.innerHTML = `Hello to ${jsonUser.email}  welcome to home page:)!!!`
+    
+}
+
+const updateLoadPage = () => {
+const email3 = document.getElementById("email3")
     email3.value = jsonUser.email
 
     const password3 = document.getElementById("password3")
@@ -17,10 +20,14 @@ const loadPage = () => {
 
     const lastName3 = document.getElementById("lastName3")
     lastName3.value = jsonUser.lastName
+}
 
+const toUpdate = () => {
+    window.location.href = "./newPage.html"
 }
 
 const update = async () => {
+    
     try {
         var userId = jsonUser.userId
         var email = document.getElementById("email3").value

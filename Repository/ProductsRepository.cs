@@ -19,7 +19,7 @@ namespace Repository
         public async Task<IEnumerable<Product>> getProductAsync(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
             var query = _dbContect.Products.Where(products =>
-            (desc == null ? (true) : (products.Description.Contains(desc)))
+            (desc == null ? (true) : (products.Name.Contains(desc)))
             && ((minPrice == null) ? (true) : (products.Price >= minPrice))
             && ((maxPrice == null) ? (true) : (products.Price <= maxPrice))
             && ((categoryIds.Length == 0) ? (true) : (categoryIds.Contains(products.CategoryId))))

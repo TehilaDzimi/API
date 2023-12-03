@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 
@@ -11,11 +13,13 @@ namespace API.Controllers
     public class OrdersController : ControllerBase
     {
         IOrdersService _orderServices;
-
-        public OrdersController(IOrdersService orderServices)
+        IMapper _mapper;
+        public OrdersController(IOrdersService orderServices, IMapper mapper)
         {
             _orderServices = orderServices;
+            _mapper = mapper;
         }
+
         // GET: api/<OrdersController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -32,16 +36,19 @@ namespace API.Controllers
 
         // POST api/<OrdersController>
         [HttpPost]
-        public async Task<CreatedAtActionResult> Post([FromBody] Order order)
+        public async Task<CreatedAtActionResult> Post([FromBody] OrderDTO orderDTO)
         {
+            Order order = _mapper.Map<OrderDTO, Order>(orderDTO);
+
             Order newOrder = await _orderServices.addOrder(order);
             if (newOrder == null)
             {
                 return null;
             }
-            return CreatedAtAction(nameof(Get), new { id = newOrder.UserId }, newOrder);
-
+            OrderDTO data = _mapper.Map<Order, OrderDTO>(newOrder);
+            return CreatedAtAction(nameof(Get), new { id = data.OrderId }, data);
         }
+
 
         // PUT api/<OrdersController>/5
         [HttpPut("{id}")]

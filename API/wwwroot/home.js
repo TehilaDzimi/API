@@ -15,7 +15,7 @@ const register = async () => {
         var User = { email, password, firstName, lastName }
 
 
-        const res = await fetch('api/users', {
+        const res = await fetch('api/Users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,14 +30,21 @@ const register = async () => {
     catch (er) {
         alert(er)
     }
+}
+
+const logOut = () => {
+    window.location.href = "./Register.html"
+}
 
 
+const logIn2 = () => {
+    window.location.href = "./home.html"
 }
 
 
 const checkLength = () => {
     var email = document.getElementById("email").value
-    if (email.length > 10) {
+    if (email.length > 20) {
         alert("to long")
     }
 } 
@@ -87,15 +94,22 @@ const checkPassword = async () => {
     }
 }
 
-
-
-
 const login = async () => {
+    let user = {
+     email:document.getElementById("email2").value,
+     password: document.getElementById("password2").value
+    }
     try {
-        var email2 = document.getElementById("email2").value
-        var password2 = document.getElementById("password2").value
-        var url = 'api/users' + "?" + "email=" + email2 + "&password=" + password2;
-        const res = await fetch(url,);
+  
+        var url = 'api/Users/login';
+        
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+});
         console.log(res)
         if (!res.ok) {
             throw new Error("eror!!!")
@@ -104,16 +118,14 @@ const login = async () => {
             var data = await res.json() 
             sessionStorage.setItem("user", JSON.stringify(data))
             alert("you loged in")
-            window.location.href = "./newPage.html"
+            window.location.href = "./Hello.html"
             
         }
     }
     catch (er) {
         alert(er.message)
     }
-   
-    
-    }
+ }
 
 
 

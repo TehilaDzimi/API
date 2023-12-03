@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
 using Service;
@@ -16,14 +18,24 @@ namespace API.Controllers
     
     public class UsersController : ControllerBase
     {
-
         IUserService userService;
-
-        // GET api/<ValuesController>
-        [HttpGet]
-        public async Task<ActionResult<User>> Get([FromQuery] string email="", [FromQuery] string password="")
+        IMapper _mapper;
+        private readonly ILogger<UsersController> _logger;
+        public UsersController(IUserService u, IMapper mapper, ILogger<UsersController> logger)
         {
-           User userAgsist = await userService.getUser(email, password);
+            userService = u;
+            _mapper = mapper;
+            _logger = logger;
+        }
+
+        [Route("login")]
+        // GET api/<ValuesController>
+        [HttpPost]
+        public async Task<ActionResult<User>> Get([FromBody] UserLoginDTO _userLoginDTO)
+        {
+            var email = _userLoginDTO.Email;
+            var password = _userLoginDTO.Password;
+            User userAgsist = await userService.getUser(email, password);
             if(userAgsist ==null)
             {
                 return NoContent();
@@ -32,26 +44,22 @@ namespace API.Controllers
 
         }
 
-
-        public UsersController(IUserService u)
-        {
-            userService = u;
-        }
-
         // POST api/<ValuesController>
         [HttpPost]
-        public async Task<CreatedAtActionResult> Post([FromBody] User user)
+        public async Task<User> Post([FromBody] UserDTO userDTO)
         {
-            User newUser = await userService.addUser(user);
-            if (newUser == null)
-            {
-                return null;
-            }
-            return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser);
+
+            User newUser = _mapper.Map<UserDTO, User>(userDTO);
+            User newUser2 = await userService.addUser(newUser);
+            return newUser2;
+            //if (newUser == null)
+            //{
+            //    return null;
+            //}
+            _logger.LogInformation($"Login attempted with User Name ,{userDTO.Email} and password {userDTO.Password}");
+            //return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser);
 
         }
-
-
 
 
         [HttpPost("check")]

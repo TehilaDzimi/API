@@ -37,6 +37,7 @@ const FilterProducts = async () => {
     }
 
     const getdesk = document.getElementById("nameSearch").value
+
     const getminPrice = document.getElementById("minPrice").value
     const getmaxPrice = document.getElementById("maxPrice").value
     const products = await getAllProducts(getdesk, getminPrice, getmaxPrice, categoriesArr);
