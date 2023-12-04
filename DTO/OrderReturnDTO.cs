@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class OrderDTO
+    public class OrderReturnDTO
     {
+        public int OrderId { get; set; }
         public DateTime? OrderDate { get; set; }
 
         public int? OrderSum { get; set; }

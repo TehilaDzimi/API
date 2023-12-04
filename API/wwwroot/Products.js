@@ -1,4 +1,4 @@
-
+﻿
 
 const getAllProducts = async (desc, minPrice, maxPrice, categoryIds) => {
     try {
@@ -27,8 +27,12 @@ const getAllProducts = async (desc, minPrice, maxPrice, categoryIds) => {
     }
 }
 
-count = 0;
+
 const FilterProducts = async () => {
+    count = sessionStorage.getItem("count");
+    document.getElementById("ItemsCountText").innerHTML = count;
+    if (sessionStorage.getItem("myBasket"))
+        BasketArr = JSON.parse(sessionStorage.getItem("myBasket"));
     const categoriesArr = [];
     const a = document.querySelectorAll(".opt");
     for (let i = 0; i < a.length; i++) {
@@ -37,22 +41,24 @@ const FilterProducts = async () => {
     }
 
     const getdesk = document.getElementById("nameSearch").value
-
     const getminPrice = document.getElementById("minPrice").value
     const getmaxPrice = document.getElementById("maxPrice").value
     const products = await getAllProducts(getdesk, getminPrice, getmaxPrice, categoriesArr);
     document.getElementById("PoductList").replaceChildren([]);
+    console.log(products + '  3333')
     for (let i = 0; i < products.length; i++) {
         var templateProd = document.getElementById("temp-card");
         var cln = templateProd.content.cloneNode(true);
-        cln.querySelector("img").src = "./Images/" + products[i].image;
+        cln.querySelector("img").src = "./image/" + products[i].image;
         cln.querySelector("h1").innerText = products[i].name;
         cln.querySelector("p.price").innerText = products[i].price + ' $';
         cln.querySelector("p.description").innerText = products[i].description;
-        cln.querySelector("button") .addEventListener('click', () => {addToBasket(products[i]) })
+        cln.querySelector("button").addEventListener('click', () => { addToBasket(products[i]) });
+
+
         document.getElementById("PoductList").appendChild(cln);
     }
-    document.getElementById("counter").innerText = products.length+1;
+    document.getElementById("counter").innerText = products.length + 1;
 }
 
 
@@ -83,13 +89,19 @@ const ShowCategories = async () => {
 
         document.getElementById("categoryList").appendChild(cln);
     }
+
+    
 }
 ShowCategories();
+let count = 0;
+let BasketArr = [];
+const addToBasket = (p) => {
+    count++;
+    sessionStorage.setItem("count", count);
+    document.getElementById("ItemsCountText").innerHTML = count;
+    BasketArr.push(p);
 
-const basketArr = [];
-
-const addToBasket = (products) => {
-    basketArr.push(products);
-    console.log(basketArr + " a")
-    sessionStorage.setItem("myBasket", JSON.stringify(basketArr));
+    console.log(BasketArr + "jhujhu");
+    sessionStorage.setItem("myBasket", JSON.stringify(BasketArr))
+    
 }

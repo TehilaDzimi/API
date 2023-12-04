@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DTO;
 using Entities;
-using System.Runtime;
 
 namespace API
 {
@@ -10,9 +9,14 @@ namespace API
         public Mapper()
         {
             CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
+            CreateMap<Order, OrderReturnDTO>().ReverseMap();
+            CreateMap<OrderItemDTO,OrderItem >().ReverseMap();
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<Category, CategoryDTO>();
-            CreateMap<Order, OrderDTO>();
+            CreateMap<Order, OrderDTO>().ReverseMap();
+            CreateMap<OrderDTO,Order>().ReverseMap();
+            CreateMap<Product, ProductsDTO>().ForMember(i => i.Name,
+               opt => opt.MapFrom(src => src.Category.Name));
         }
     }
 }

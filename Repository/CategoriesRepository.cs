@@ -5,23 +5,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using static Repository.CategoryRepository;
 
 namespace Repository
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoriesRepository : ICategoriesRepository
     {
-        private readonly MyShop910Context _MyShop910Context;
-
-        public CategoryRepository(MyShop910Context MyShop910Context)
+        private readonly MyShop8910Context DB_contect;
+        public CategoriesRepository(MyShop8910Context _DB_contect)
         {
-            _MyShop910Context = MyShop910Context;
+            DB_contect = _DB_contect;
         }
 
-        public async Task<IEnumerable<Category>> GetCategoryAsync()
+        public async Task<IEnumerable<Category>> GetCategoriesAsync()
         {
-            return await _MyShop910Context.Categories.ToListAsync();
+            return await DB_contect.Categories.ToListAsync();
         }
+
     }
-
 }

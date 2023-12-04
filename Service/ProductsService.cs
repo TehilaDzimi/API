@@ -1,26 +1,24 @@
 ﻿using Entities;
 using Repository;
-using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Repository;
-namespace Services
+
+namespace Service
 {
-    public class ProductServies : IProductServies
+    public class ProductsService : IProductsService
     {
-        IProductsRepository _productRepository;
-
-        public ProductServies(IProductsRepository productRepository)
+        IProductsRepository _ProductsRepository;
+        public ProductsService(IProductsRepository ProductsRepository)
         {
-            _productRepository = productRepository;
+            _ProductsRepository = ProductsRepository;
         }
-        public async Task<IEnumerable<Product>> getProductAsync(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
+        public async Task<IEnumerable<Product>> getProduct(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
-            return await _productRepository.getProductAsync(desc,minPrice,maxPrice,categoryIds);
+            return await _ProductsRepository.getProductAsync(desc,minPrice,maxPrice,categoryIds);
         }
-
+       
     }
 }

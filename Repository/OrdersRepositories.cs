@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,26 @@ namespace Repository
 {
     public class OrdersRepositories : IOrdersRepositories
     {
-        private readonly MyShop910Context DB_contect;
-        public OrdersRepositories(MyShop910Context DBcontect)
+        private readonly MyShop8910Context _DB_contect;
+        public OrdersRepositories(MyShop8910Context DB_contect)
         {
-            DB_contect = DBcontect;
-        }
-        public async Task<Order> addOrder(Order order)
-        {
-            await DB_contect.Orders.AddAsync(order);
-            await DB_contect.SaveChangesAsync();
-            return order;
+            _DB_contect = DB_contect;
         }
 
+
+        public async Task<Order> addOrder(Order order)
+        {
+            await _DB_contect.Orders.AddAsync(order);
+            await _DB_contect.SaveChangesAsync();
+
+            return order;
+
+        }
+
+        public async Task<int> GetProductsPrice(OrderItem orderItems)
+        {
+            Product p = _DB_contect.Products.Where(i => i.ProductId == orderItems.ProductsId).FirstOrDefault();
+            return (int)p.Price;
+        }
     }
 }

@@ -23,6 +23,7 @@ namespace Service
         }
 
 
+
         public async Task<User> getUser(string email, string password)
         {
             return await userRepository.getUser(email, password);
@@ -45,9 +46,9 @@ namespace Service
             return -1;
         }
 
-        public async Task<User> getUserById(int id)
-        {
-            return await userRepository.getUserById(id);
-        }
+        //public async Task<User> getUserById(int id)
+        //{
+        //    return await userRepository.getUserById(id);
+        //}
     }
 }

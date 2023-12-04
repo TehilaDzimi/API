@@ -6,17 +6,16 @@ namespace Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly MyShop910Context DB_contect;
-        public UserRepository(MyShop910Context DBcontect)
+        private readonly MyShop8910Context DB_contect;
+        public UserRepository(MyShop8910Context DBcontect)
         {
             DB_contect = DBcontect;
         }
-        string path = "M:/WebApi/NewWebApi/ApiEx01/API/wwwroot/users.txt";
+        //string path = "M:/WebApi/NewWebApi/ApiEx01/API/wwwroot/users.txt";
         public async Task<User> addUser(User user)
         {
             await DB_contect.Users.AddAsync(user);
             await DB_contect.SaveChangesAsync();
-            return user;
             //int numberOfUsers =  System.IO.File.ReadLines(path).Count();
             //user.UserId = numberOfUsers + 1;
             ////var result = Zxcvbn.Core.EvaluatePassword(user.Password);
@@ -26,6 +25,8 @@ namespace Repository
             ////}
             //string userJson = JsonSerializer.Serialize(user);
             //System.IO.File.AppendAllText(path, userJson + Environment.NewLine);
+            return user;
+
         }
 
         public async Task<User> getUser(string email, string password)
@@ -72,21 +73,21 @@ namespace Repository
             return userToUpdate;
         }
 
-        public async Task<User> getUserById(int id)
-        {
+        //public async Task<User> getUserById(int id)
+        //{
 
 
-            using (StreamReader reader = System.IO.File.OpenText(path))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = await reader.ReadLineAsync()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.UserId == id)
-                        return user;
-                }
-            }
-            return null;
-        }
+        //    using (StreamReader reader = System.IO.File.OpenText(path))
+        //    {
+        //        string? currentUserInFile;
+        //        while ((currentUserInFile = await reader.ReadLineAsync()) != null)
+        //        {
+        //            User user = JsonSerializer.Deserialize<User>(currentUserInFile);
+        //            if (user.UserId == id)
+        //                return user;
+        //        }
+        //    }
+        //    return null;
+        //}
     }
 }

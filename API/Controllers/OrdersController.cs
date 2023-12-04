@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using DTO;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Service;
+using DTO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,14 +12,14 @@ namespace API.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        IOrdersService _orderServices;
+        IOrdersService _IOrdersService;
         IMapper _mapper;
-        public OrdersController(IOrdersService orderServices, IMapper mapper)
+        public OrdersController(IOrdersService IOrdersService , IMapper mapper)
         {
-            _orderServices = orderServices;
+
+            _IOrdersService = IOrdersService;
             _mapper = mapper;
         }
-
         // GET: api/<OrdersController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -27,26 +27,22 @@ namespace API.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<OrdersController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+ 
 
         // POST api/<OrdersController>
         [HttpPost]
-        public async Task<CreatedAtActionResult> Post([FromBody] OrderDTO orderDTO)
+        public async Task<ActionResult<OrderDTO>> Post([FromBody] OrderDTO order)
         {
-            Order order = _mapper.Map<OrderDTO, Order>(orderDTO);
 
-            Order newOrder = await _orderServices.addOrder(order);
+            Order order1 = _mapper.Map<OrderDTO, Order>(order);
+            OrderReturnDTO newOrder = _mapper.Map<Order, OrderReturnDTO>(await _IOrdersService.addOrder(order1));
             if (newOrder == null)
             {
-                return null;
+                return NoContent();
             }
-            OrderDTO data = _mapper.Map<Order, OrderDTO>(newOrder);
-            return CreatedAtAction(nameof(Get), new { id = data.OrderId }, data);
+
+            return CreatedAtAction(nameof(Get), new { id = newOrder.OrderId }, newOrder);
+
         }
 
 

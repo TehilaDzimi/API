@@ -15,7 +15,7 @@ const register = async () => {
         var User = { email, password, firstName, lastName }
 
 
-        const res = await fetch('api/Users', {
+        const res = await fetch('api/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -25,29 +25,22 @@ const register = async () => {
         });
 
         const dataPost = await res.json();
-        alert(dataPost)
+        alert(`${dataPost.firstName}  ${dataPost.lastName} added`)
     }
     catch (er) {
         alert(er)
     }
-}
-
-const logOut = () => {
-    window.location.href = "./Register.html"
-}
 
 
-const logIn2 = () => {
-    window.location.href = "./home.html"
 }
 
 
-const checkLength = () => {
-    var email = document.getElementById("email").value
-    if (email.length > 20) {
-        alert("to long")
-    }
-} 
+//const checkLength = () => {
+//    var email = document.getElementById("email").value
+//    if (email.length > 30) {
+//        alert("to long")
+//    }
+//} 
 
 var users;
 
@@ -94,38 +87,50 @@ const checkPassword = async () => {
     }
 }
 
+
+
+
 const login = async () => {
     let user = {
-     email:document.getElementById("email2").value,
-     password: document.getElementById("password2").value
+        email: document.getElementById("email2").value,
+        password: document.getElementById("password2").value
     }
     try {
-  
+
         var url = 'api/Users/login';
-        
+
         const res = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(user)
-});
+        });
         console.log(res)
         if (!res.ok) {
             throw new Error("eror!!!")
         }
         else {
-            var data = await res.json() 
+            var data = await res.json()
             sessionStorage.setItem("user", JSON.stringify(data))
             alert("you loged in")
             window.location.href = "./Hello.html"
-            
+
         }
     }
     catch (er) {
         alert(er.message)
     }
- }
+
+    
+ 
+    }
 
 
+const logOut = () => {
+    window.location.href = "./Register.html"
+}
 
+const login2 = () => {
+    window.location.href = "./home.html"
+}

@@ -2,14 +2,17 @@
 const user = sessionStorage.getItem("user")
 const jsonUser = JSON.parse(user)
 
+
 const loadPage = () => {
-    /*const jsonUser = JSON.parse(user)*/
-    welcome.innerHTML = `Hello to ${jsonUser.email}  welcome to home page:)!!!`
+    const jsonUser = JSON.parse(user)
+    welcome.innerHTML = `hello to ${jsonUser.firstName}  welcome to home page:)!!!`
     
+
 }
 
-const updateLoadPage = () => {
-const email3 = document.getElementById("email3")
+const UpdateloadPage = () => {
+    
+    const email3 = document.getElementById("email3")
     email3.value = jsonUser.email
 
     const password3 = document.getElementById("password3")
@@ -20,11 +23,9 @@ const email3 = document.getElementById("email3")
 
     const lastName3 = document.getElementById("lastName3")
     lastName3.value = jsonUser.lastName
+
 }
 
-const toUpdate = () => {
-    window.location.href = "./newPage.html"
-}
 
 const update = async () => {
     
@@ -52,11 +53,14 @@ const update = async () => {
 
 catch (er) {
     alert(er.message)
-    }
-
-    
 }
 
-const logToStore = () => {
+    
+
+}
+const loadToPage = () => {
     window.location.href = "./Products.html"
+}
+const toUpdate = () => {
+    window.location.href = "./newPage.html"
 }

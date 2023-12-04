@@ -4,6 +4,7 @@ using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
 using Service;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Eventing.Reader;
 using System.Text.Json;
 using Zxcvbn;
@@ -16,26 +17,29 @@ namespace API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     
+
+   
     public class UsersController : ControllerBase
     {
+
         IUserService userService;
         IMapper _mapper;
-        private readonly ILogger<UsersController> _logger;
+        ILogger<UsersController> _logger;
         public UsersController(IUserService u, IMapper mapper, ILogger<UsersController> logger)
         {
             userService = u;
             _mapper = mapper;
             _logger = logger;
         }
-
         [Route("login")]
         // GET api/<ValuesController>
         [HttpPost]
-        public async Task<ActionResult<User>> Get([FromBody] UserLoginDTO _userLoginDTO)
+        public async Task<ActionResult<User>> Get([FromBody] UserLoginDTO userLoginDTO)
         {
-            var email = _userLoginDTO.Email;
-            var password = _userLoginDTO.Password;
+            var email = userLoginDTO.Email;
+            var password = userLoginDTO.Password;
             User userAgsist = await userService.getUser(email, password);
+
             if(userAgsist ==null)
             {
                 return NoContent();
@@ -44,22 +48,27 @@ namespace API.Controllers
 
         }
 
+
+       
+
         // POST api/<ValuesController>
         [HttpPost]
-        public async Task<User> Post([FromBody] UserDTO userDTO)
+        public async Task<CreatedAtActionResult> Post([FromBody] UserDTO userDTO)
         {
-
-            User newUser = _mapper.Map<UserDTO, User>(userDTO);
-            User newUser2 = await userService.addUser(newUser);
-            return newUser2;
-            //if (newUser == null)
-            //{
-            //    return null;
-            //}
-            _logger.LogInformation($"Login attempted with User Name ,{userDTO.Email} and password {userDTO.Password}");
-            //return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser);
+           
+            User newUser = _mapper.Map<UserDTO,User>(userDTO);
+            await userService.addUser(newUser);
+            
+            if (newUser == null)
+            {
+                return null;
+            }
+            _logger.LogInformation("Login attempted with User Name,{0} and password {1}", userDTO.Email, userDTO.Password);
+            return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser);
 
         }
+
+
 
 
         [HttpPost("check")]
@@ -90,17 +99,17 @@ namespace API.Controllers
         {
 
         }
-        [HttpGet("id")]
-        public async Task<ActionResult> Get(
-            [FromQuery] int id )
-        {
-            User userAgsist = await userService.getUserById(id);
-            if (userAgsist == null)
-            {
-                return NoContent();
-            }
-            return Ok(userAgsist);
+        //[HttpGet("id")]
+        //public async Task<ActionResult> Get(
+        //    [FromQuery] int id )
+        //{
+        //    User userAgsist = await userService.getUserById(id);
+        //    if (userAgsist == null)
+        //    {
+        //        return NoContent();
+        //    }
+        //    return Ok(userAgsist);
 
-        }
+        //}
     }
 }

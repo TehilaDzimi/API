@@ -10,16 +10,16 @@ namespace Service
 {
     public class CategoriesService : ICategoriesService
     {
-        ICategoryRepository _categoryRepository;
+        private readonly ICategoriesRepository _ICategoriesRepository;
 
-        public CategoriesService(ICategoryRepository categoryRepository)
+        public CategoriesService(ICategoriesRepository ICategoriesRepository)
         {
-            _categoryRepository = categoryRepository;
+            _ICategoriesRepository = ICategoriesRepository;
+        }
+        public async Task<IEnumerable<Category>> GetCategoriesAsync()
+        {
+            return await _ICategoriesRepository.GetCategoriesAsync();
         }
 
-        public async Task<IEnumerable<Category>> GetCategoryAsync()
-        {
-            return await _categoryRepository.GetCategoryAsync();
-        }
     }
 }
