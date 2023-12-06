@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 namespace API
 {
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-    public class Middleware
+    public class RatingMiddleware
     {
         IRatingService _RatingService;
         private readonly RequestDelegate _next;
 
-        public Middleware(RequestDelegate next)
+        public RatingMiddleware(RequestDelegate next)
         {
             _next = next;
-            
+
         }
         public async Task Invoke(HttpContext httpContext, IRatingService ratingService)
         {
@@ -29,7 +29,7 @@ namespace API
                 RecordDate = DateTime.Now,
             };
             await ratingService.addRating(rate);
-           
+
             await _next(httpContext);
         }
     }
@@ -39,7 +39,7 @@ namespace API
     {
         public static IApplicationBuilder UseMiddleware(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<Middleware>();
+            return builder.UseMiddleware<RatingMiddleware>();
         }
     }
 }

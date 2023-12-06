@@ -15,8 +15,7 @@ namespace API
             CreateMap<Category, CategoryDTO>();
             CreateMap<Order, OrderDTO>().ReverseMap();
             CreateMap<OrderDTO,Order>().ReverseMap();
-            CreateMap<Product, ProductsDTO>().ForMember(i => i.Name,
-               opt => opt.MapFrom(src => src.Category.Name));
+            CreateMap<Product, ProductsDTO>();
         }
     }
 }

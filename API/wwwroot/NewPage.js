@@ -44,20 +44,57 @@ const update = async () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(User)
-
         });
-    const dataPost = await res.json();
-    alert("עודכן")
-    console.log(dataPost)
+        if (res.ok) {
+            const dataPost = await res.json();
+            alert("The user updated succesefuly")
+            console.log(dataPost)
+        }
+        else {
+            throw new Error('Request failed with status ' + res.status);
+        }
     }
-
-catch (er) {
-    alert(er.message)
-}
-
     
-
+    catch (er) {
+        alert("cant save the changes")
+    }
 }
+
+const checkPassword = async () => {
+    var res;
+    var strength = {
+        0: "Worst",
+        1: "Bad",
+        2: "Weak",
+        3: "Good",
+        4: "Strong"
+    }
+    var password = document.getElementById("password").value;
+    var meter = document.getElementById('password-strength-meter');
+    var text = document.getElementById('password-strength-text');
+    await fetch('api/Users/check',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(password)
+
+        })
+        .then(r => r.json())
+        .then(data => res = data)
+
+    if (res <= 2)
+        meter.value = res;
+        meter.value = res;
+    if (password !== "") {
+        text.innerHTML = "Strength: " + strength[res];
+    } else {
+        text.innerHTML = "";
+    }
+}
+
+
 const loadToPage = () => {
     window.location.href = "./Products.html"
 }

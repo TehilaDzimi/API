@@ -10,8 +10,8 @@ namespace Repository
 {
     public class CategoriesRepository : ICategoriesRepository
     {
-        private readonly MyShop8910Context DB_contect;
-        public CategoriesRepository(MyShop8910Context _DB_contect)
+        private readonly MyShop910Context DB_contect;
+        public CategoriesRepository(MyShop910Context _DB_contect)
         {
             DB_contect = _DB_contect;
         }

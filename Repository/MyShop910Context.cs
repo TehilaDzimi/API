@@ -6,14 +6,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace Repository;
 
-public partial class MyShop8910Context : DbContext
+public partial class MyShop910Context : DbContext
 {
     public IConfiguration _configuration { get; }
-    public MyShop8910Context()
+    public MyShop910Context()
     {
     }
 
-    public MyShop8910Context(DbContextOptions<MyShop8910Context> options, IConfiguration configuration)
+    public MyShop910Context(DbContextOptions<MyShop910Context> options, IConfiguration configuration)
         : base(options)
     {
         _configuration = configuration;

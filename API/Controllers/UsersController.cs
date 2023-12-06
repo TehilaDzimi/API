@@ -10,7 +10,7 @@ using System.Text.Json;
 using Zxcvbn;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
+//
 namespace API.Controllers
 {
 
@@ -93,23 +93,5 @@ namespace API.Controllers
 
         }
 
-        // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-
-        }
-        //[HttpGet("id")]
-        //public async Task<ActionResult> Get(
-        //    [FromQuery] int id )
-        //{
-        //    User userAgsist = await userService.getUserById(id);
-        //    if (userAgsist == null)
-        //    {
-        //        return NoContent();
-        //    }
-        //    return Ok(userAgsist);
-
-        //}
     }
 }

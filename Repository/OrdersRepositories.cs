@@ -10,8 +10,8 @@ namespace Repository
 {
     public class OrdersRepositories : IOrdersRepositories
     {
-        private readonly MyShop8910Context _DB_contect;
-        public OrdersRepositories(MyShop8910Context DB_contect)
+        private readonly MyShop910Context _DB_contect;
+        public OrdersRepositories(MyShop910Context DB_contect)
         {
             _DB_contect = DB_contect;
         }

@@ -10,8 +10,8 @@ namespace Repository
 {
     public class ProductsRepository : IProductsRepository
     {
-        private readonly MyShop8910Context DB_contect;
-        public ProductsRepository(MyShop8910Context DBcontect)
+        private readonly MyShop910Context DB_contect;
+        public ProductsRepository(MyShop910Context DBcontect)
         {
             DB_contect = DBcontect;
         }
@@ -24,7 +24,7 @@ namespace Repository
             && ((minPrice == null) ? (true) : (products.Price >= minPrice))
             && ((maxPrice == null) ? (true) : (products.Price <= maxPrice))
             && ((categoryIds.Length == 0) ? (true) : (categoryIds.Contains(products.CategoryId))))
-                .OrderBy(products => products.Price).Include(i => i.Category);
+                .OrderBy(products => products.Price);
             Console.WriteLine(query.ToQueryString());
             List<Product> products = await query.ToListAsync();
             return products;

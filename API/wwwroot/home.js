@@ -4,11 +4,8 @@
 var IdCount = 100;
 
 const register = async () => {
-
-
     try {
         var email = document.getElementById("email").value
-
         var password = document.getElementById("password").value
         var firstName = document.getElementById("firstName").value
         var lastName = document.getElementById("lastName").value
@@ -25,7 +22,13 @@ const register = async () => {
         });
 
         const dataPost = await res.json();
-        alert(`${dataPost.firstName}  ${dataPost.lastName} added`)
+        if (dataPost.email != null) {
+            alert(`${dataPost.firstName}  ${dataPost.lastName} added`)
+        }
+        else {
+            alert("eror!!")
+        }
+        
     }
     catch (er) {
         alert(er)
@@ -118,8 +121,9 @@ const login = async () => {
 
         }
     }
+
     catch (er) {
-        alert(er.message)
+        alert("The email or the password was not proper")
     }
 
     

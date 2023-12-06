@@ -45,10 +45,5 @@ namespace Service
             }
             return -1;
         }
-
-        //public async Task<User> getUserById(int id)
-        //{
-        //    return await userRepository.getUserById(id);
-        //}
     }
 }

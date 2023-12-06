@@ -10,8 +10,8 @@ namespace Repository
     public class RatingRepository: IRatingRepository
         
     {
-        private readonly MyShop8910Context DB_contect;
-        public RatingRepository(MyShop8910Context DBcontect)
+        private readonly MyShop910Context DB_contect;
+        public RatingRepository(MyShop910Context DBcontect)
         {
             DB_contect = DBcontect;
         }

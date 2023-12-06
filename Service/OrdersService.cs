@@ -39,20 +39,3 @@ namespace Service
         
     }
 }
-//public async Task<Order> GetOrders(Order order)
-//       {
-//           double totalSum = 0;
-//           foreach (OrderItem item in order.OrderItems)
-//           {
-//                Product p= await ProductRepository.GetProductById(item.ProdId);
-//               totalSum += p.Price;
-
-//           }
-//           if (totalSum != order.OrderSum)
-//           {
-//               _logger.LogError("someone want to stole you!!!!!!!!!!!!!!!!!!!");
-//               order.OrderSum = totalSum;
-//           }
-//           order.OrderSum = (int)order.OrderSum;
-//           return await OrderRepository.AddOrder(order);
-//       }

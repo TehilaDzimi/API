@@ -20,20 +20,20 @@ builder.Services.AddScoped<IOrdersRepositories, OrdersRepositories>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 
 builder.Services.AddScoped<IRatingService, RatingService>();
-
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Host.UseNLog();
-
 builder.Services.AddControllers();
-builder.Services.AddDbContext<MyShop8910Context>(option=>option.UseSqlServer(builder.Configuration.GetConnectionString("MyShop")));
+
+builder.Services.AddDbContext<MyShop910Context>(option=>option.UseSqlServer(builder.Configuration.GetConnectionString("MyShop")));
 var app = builder.Build();
-app.UseMiddleware<Middleware>();
+
+app.UseMiddleware<RatingMiddleware>();
 app.UseMiddleware<ErrorHandlingMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
